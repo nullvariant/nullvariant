@@ -30,8 +30,8 @@ cd nullvariant
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# OpenAI API キー設定
-export OPENAI_API_KEY=sk-...
+# Anthropic API キー設定
+export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 ### 2. 編集フロー

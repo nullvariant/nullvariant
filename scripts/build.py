@@ -1,8 +1,8 @@
 import os, re, json, yaml
 from pathlib import Path
-from openai import OpenAI
+from anthropic import Anthropic
 
-MODEL_DEFAULT = os.getenv("OPENAI_MODEL", "gpt-4.1")
+MODEL_DEFAULT = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-5-20250929")
 ROOT = Path(__file__).resolve().parents[1]
 JA = ROOT / "content" / "AGENT.ja.md"
 EN = ROOT / "AGENT.md"                     # ← root-level output
@@ -35,12 +35,15 @@ def inject_anchors(text: str, entries):
     return out
 
 def chat(model, system, prompt, temperature=0.0):
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    rsp = client.chat.completions.create(
-        model=model, temperature=temperature,
-        messages=([{"role":"system","content":system}]+[{"role":"user","content":prompt}])
+    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    rsp = client.messages.create(
+        model=model,
+        max_tokens=8192,
+        temperature=temperature,
+        system=system,
+        messages=[{"role":"user","content":prompt}]
     )
-    return rsp.choices[0].message.content
+    return rsp.content[0].text
 
 def main():
     ja = load(JA)

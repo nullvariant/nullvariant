@@ -1,10 +1,10 @@
 import os, json, yaml
 from pathlib import Path
 from jsonschema import Draft202012Validator
-from openai import OpenAI
+from anthropic import Anthropic
 from sentence_transformers import SentenceTransformer, util
 
-MODEL_DEFAULT = os.getenv("OPENAI_MODEL", "gpt-4.1")
+MODEL_DEFAULT = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-5-20250929")
 ROOT = Path(__file__).resolve().parents[1]
 JA = ROOT / "content" / "AGENT.ja.md"
 EN = ROOT / "AGENT.md"
@@ -17,20 +17,29 @@ BACKPROMPT = ROOT / "scripts" / "prompts" / "99_backtranslate.txt"
 def load(p: Path): return p.read_text(encoding="utf-8")
 
 def backtranslate(en_md: str):
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    msgs = [{"role":"system","content":load(BACKPROMPT)},
-            {"role":"user","content":en_md}]
-    rsp = client.chat.completions.create(model=MODEL_DEFAULT, temperature=0.0, messages=msgs)
-    return rsp.choices[0].message.content
+    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    system = load(BACKPROMPT)
+    rsp = client.messages.create(
+        model=MODEL_DEFAULT,
+        max_tokens=8192,
+        temperature=0.0,
+        system=system,
+        messages=[{"role":"user","content":en_md}]
+    )
+    return rsp.content[0].text
 
 def llm_review(jp: str, en: str, spec: str):
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    msgs = [{"role":"system","content":load(PROMPTS)},
-            {"role":"user","content":f"# JA\\n{jp}"},
-            {"role":"user","content":f"# EN\\n{en}"},
-            {"role":"user","content":f"# YAML\\n{spec}"}]
-    rsp = client.chat.completions.create(model=MODEL_DEFAULT, temperature=0.0, messages=msgs)
-    return rsp.choices[0].message.content
+    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    system = load(PROMPTS)
+    prompt = f"# JA\n{jp}\n\n# EN\n{en}\n\n# YAML\n{spec}"
+    rsp = client.messages.create(
+        model=MODEL_DEFAULT,
+        max_tokens=8192,
+        temperature=0.0,
+        system=system,
+        messages=[{"role":"user","content":prompt}]
+    )
+    return rsp.content[0].text
 
 def ensure_keys(ja: str, en: str, gloss_obj: dict):
     must_ja, must_en = [], []

@@ -21,20 +21,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Check OPENAI_API_KEY presence
+      - name: Check ANTHROPIC_API_KEY presence
         run: |
-          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then
-            echo "::error::OPENAI_API_KEY is NOT set in Settings > Secrets and variables > Actions."
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "::error::ANTHROPIC_API_KEY is NOT set in Settings > Secrets and variables > Actions."
             exit 1
           fi
-          echo "OPENAI_API_KEY is present (value masked)."
+          echo "ANTHROPIC_API_KEY is present (value masked)."
       - name: Build
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/build.py
       - name: Review
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/review.py --strict
       - name: Commit artifacts
         run: |

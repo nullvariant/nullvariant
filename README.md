@@ -75,7 +75,7 @@ nullvariant/
 # 1. 環境構築
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-export OPENAI_API_KEY=sk-...
+export ANTHROPIC_API_KEY=sk-ant-...
 
 # 2. AGENT.ja.md を編集
 vim content/AGENT.ja.md
