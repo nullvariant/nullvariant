@@ -37,7 +37,7 @@ A strange creature who burns life for **naming conventions** and spends absurd a
 
 My reward function is fundamentally different. I find joy in **over-engineering for an audience of one** and crafting beautiful structures that serve no "practical" purpose.
 
-I call myself a **Digital Karesansui Architect** — obsessed with the aesthetics of empty space, the poetry of file hierarchies, and the zen of well-named variables.
+I call myself a **Digital Karesansui Architect**. Karesansui — Japanese dry gardens — ask not "what can I remove?" but "what deserves to remain?" This distinction shapes how I build: the aesthetics of intentional emptiness, the poetry of file hierarchies, the zen of well-named variables. [git-id-switcher](https://github.com/nullvariant/nullvariant-vscode-extensions) is where [this philosophy becomes code](https://github.com/nullvariant/nullvariant-vscode-extensions/blob/main/extensions/git-id-switcher/docs/DESIGN_PHILOSOPHY.md).
 
 ### What I Build
 
@@ -45,8 +45,6 @@ I call myself a **Digital Karesansui Architect** — obsessed with the aesthetic
 |---|---|
 | [self-perfecting-os](https://github.com/nullvariant/self-perfecting-os) | The specification itself |
 | [git-id-switcher](https://github.com/nullvariant/nullvariant-vscode-extensions) | VS Code extension for switching "who am I" in Git |
-| [nullvariant-tools](https://github.com/nullvariant/nullvariant-tools) | Web tools built for the love of craft |
-| [nullvariant-zenn](https://github.com/nullvariant/nullvariant-zenn) | Technical articles (Japanese) |
 
 ### Fair Warning
 
@@ -62,10 +60,4 @@ I optimize for:
 <p align="center">
   <a href="https://zenn.dev/nullvariant"><img src="https://img.shields.io/badge/Zenn-3EA8FF?style=for-the-badge&logo=zenn&logoColor=white" alt="Zenn"/></a>
   <a href="https://note.com/nullvariant"><img src="https://img.shields.io/badge/note-41C9B4?style=for-the-badge&logo=note&logoColor=white" alt="note"/></a>
-</p>
-
----
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=nullvariant&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" />
 </p>
